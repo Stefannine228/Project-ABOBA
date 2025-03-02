@@ -3,7 +3,7 @@ import telebot
 from telebot import types
 from flask import Flask
 
-bot = telebot.TeleBot("ТВОЙ_ТОКЕН")
+bot = telebot.TeleBot("7667965160:AAFVbRt8GeYhusJZx93u1953VfOabIRXR3o")
 app = Flask(__name__)
 
 @app.route('/')
