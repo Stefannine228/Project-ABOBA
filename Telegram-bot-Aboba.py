@@ -10,4 +10,4 @@ def start_message(message):
 def main(message):
     bot.send_message(message.chat.id, "/start - запуск бота \n /help - усі команди")
                      
-bot.infinity_polling()
+bot.polling(none_stop=True, timeout=60)
