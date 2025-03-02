@@ -8,6 +8,6 @@ def start_message(message):
     bot.send_message(message.chat.id, "Салаам Алейкум, і я продовжу терор на новому рівні. МУХАХАХАХА")
 @bot.message_handler(commands=['help'])
 def main(message):
-    bot.send_message(message.chat.id, "/start - запуск бота \n /help - усі команди"
+    bot.send_message(message.chat.id, "/start - запуск бота \n /help - усі команди")
                      
 bot.infinity_polling()
