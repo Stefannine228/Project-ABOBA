@@ -1,14 +1,10 @@
-import os
 import telebot
-from telebot import types
-from flask import Flask
+import random
+import time
+import asyncio
 
 bot = telebot.TeleBot("7667965160:AAFVbRt8GeYhusJZx93u1953VfOabIRXR3o")
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return "Бот працює!"
+admins=['Dyda275','TypaKlutoy']
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
@@ -16,18 +12,42 @@ def start_message(message):
 
 @bot.message_handler(commands=['help'])
 def main(message):
-    bot.send_message(message.chat.id, "/start - запуск бота \n/help - усі команди")
+    bot.send_message(message.chat.id, "/start - запуск бота \n/help - усі команди\n/aboba")
 
-def start_bot():
-    while True:
-        try:
-            bot.polling(none_stop=True, timeout=60)
-        except Exception as e:
-            print(f"Помилка: {e}")
+@bot.message_handler(content_types=['text'])
+def check_messages(message):
+    if message.text.lower() == 'абоба':
+        bot.send_message(message.chat.id, random.choice(['абоба', 'Абоба', 'АБОООБААА','абоба', 'Абоба', 'АБОООБААА','абіба']))
+    elif message.text.lower() in ["ні", "ні.","нє","нє","ні!","нє!","нэ","нэ!","нэ.","нє."]:
+        bot.send_message(message.chat.id, "Ні? Пішов тоді ти нахуй! Рицаря затримав!")
 
-if __name__ == '__main__':
-    from threading import Thread
-    Thread(target=start_bot).start()
+@bot.message_handler(commands=['aboba'])
+def start_message(message):
+    bot.send_message(
+        message.chat.id, 
+        '<a href="https://youtu.be/dQw4w9WgXcQ?si=Dwe0iKSP48FbgAdF">aboba тут</a>', 
+        parse_mode="HTML",
+        disable_web_page_preview=True  # Вимикає прев’ю посилання
+    )
 
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+@bot.message_handler(commands=['info'])
+def main(message):
+ bot.send_message(message.chat.id, message)
+ 
+
+GROUP_ID = '2105518856'  # Ваш канал або група
+@bot.message_handler(commands=['test'])
+def send_to_group(text):
+    bot.send_message(GROUP_ID, text)
+
+@bot.message_handler(commands=['admin'])
+def main(m):
+ if m.from_user.username in admins:
+  bot.send_message(m.chat.id, m.from_user.username + " administrator aboba")
+
+
+
+bot.polling()
+
+  
+bot.polling(none_stop=True, timeout=60)
